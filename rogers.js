@@ -1,21 +1,29 @@
-/*Framework de Otimização de Desenvolvimento Javascript para Liferay, INC. 
-* Codiname : Rogers.js
-* @autor Paulo H. Pires -> about.me/paulohp e Gustavo Perdigão -> twitter.com/gugaperdigao
-* versão: 1.0.0
-* data: 01/02/2012
-* GNU - Open-Source | É livre a ultilização, modificação e distribuição.
-*/
-$(document).ready(function(){
+/**
+ * @description       Framework Javascript for fast development based in AlloyUI
+ * @subdescription    Features in javascript to avoid repetitive codes.
+ * @package           rogers.js
+ * @version           0.2
+ * @subpackage        rogers.min.js
+ * @author            Paulo Henrique Pires -> usklandestinos.com .
+ * @copyright         2012, Paulo Henrique Pires Araujo.
+ * @license           GNU.
+ */
+AUI().ready(
 
-	//Metodo que Muda link do Título e do da Notícia em Destaque/Manchete
-	function rogerMudarLinkManchete(idPortletInicial, idPortletFinal, idPortletReplaceInicial, idPortletReplaceFinal){
-		var link = $("#+idPortletInicial").find(".asset-abstract").find(".asset-title").find("a").attr("href").replace("idPortletReplaceInicial","idPortletReplaceFinal");
-			$("#+idPortletInicial").find(".asset-abstract").find(".asset-title").find("a").attr("href",link);
-			$("#+idPortletInicial").find(".asset-abstract").find(".asset-more").find("a").attr("href",link);
+	/*!
+	 * @functionname    changeLink
+	 * @description     Function to Change Title link and the content.
+	 * @param1 type     idPortletInicial = ID of the portlet you want to change
+	 * @return type     O que serï¿½ retornado.
+	 */
+	function changeLink(idPortletInicial, idPortletFinal, idPortletReplaceInicial, idPortletReplaceFinal){
+		var link = A.one("#+idPortletInicial").all(".asset-abstract").all(".asset-title").all("a").attr("href").replace("idPortletReplaceInicial","idPortletReplaceFinal");
+			A.one("#+idPortletInicial").all(".asset-abstract").all(".asset-title").all("a").attr("href",link);
+			$("#+idPortletInicial").all(".asset-abstract").all(".asset-more").all("a").attr("href",link);
 	}
-	
+
 	//Metodo que muda link da lista de titulos
-	function rogerMudaLinkLista(idPortletInicial, idPortletReplaceInicial, idPortletReplaceFinal){
+	function changeLinkList(idPortletInicial, idPortletReplaceInicial, idPortletReplaceFinal){
 		var lista = $("#+idPortletInicial").find(".title-list").find("a");
 			for(i=0;i<lista.length;i++){
 				var lnk = $(lista[i]).attr("href").replace("idPortletReplaceInicial","idPortletReplaceInicial");
@@ -80,9 +88,9 @@ $(document).ready(function(){
 			$('a[rel*=facebox]').facebox()
 	}
 
-	//Metodo que retira informações desnecessarias do resultado da busca
+	//Metodo que retira informaï¿½ï¿½es desnecessarias do resultado da busca
 	function rogerHideResultadoBusca(){
-		//retira img do botão de pesquisa;
+		//retira img do botï¿½o de pesquisa;
 		$("#_77_search").attr("src","");
 
 		//retira opcao de busca no resultado da pesquisa
@@ -161,9 +169,9 @@ $(document).ready(function(){
 	}
 	/*******************************************************************************
  * 
- * Troca link em listas Autor: Gustavo Perdigão lista = Lista de elementos do
- * tipo <a> atual = identificação do portlet de atualização novo = identificação
- * do novo portlet de visuzlização
+ * Troca link em listas Autor: Gustavo Perdigï¿½o lista = Lista de elementos do
+ * tipo <a> atual = identificaï¿½ï¿½o do portlet de atualizaï¿½ï¿½o novo = identificaï¿½ï¿½o
+ * do novo portlet de visuzlizaï¿½ï¿½o
  * 
  ******************************************************************************/
 
@@ -180,8 +188,8 @@ function trocaStringEmListasDeLinks(lista, atual, novo) {
 
 /*******************************************************************************
  * 
- * Insere Div em asset-summary Autor: Gustavo Perdigão id_portlet = id do
- * portlet para fazer a inserção
+ * Insere Div em asset-summary Autor: Gustavo Perdigï¿½o id_portlet = id do
+ * portlet para fazer a inserï¿½ï¿½o
  * 
  ******************************************************************************/
 
@@ -215,9 +223,9 @@ function acertaImagensEResumos(id_portlet) {
 
 /*******************************************************************************
  * 
- * Função responsável por acertar a agenda para que fique seja possível
- * estilizar mês e dia Autor: Gustavo Perdigão id_portlet = id do portlet para
- * fazer a inserção
+ * Funï¿½ï¿½o responsï¿½vel por acertar a agenda para que fique seja possï¿½vel
+ * estilizar mï¿½s e dia Autor: Gustavo Perdigï¿½o id_portlet = id do portlet para
+ * fazer a inserï¿½ï¿½o
  * 
  ******************************************************************************/
 
@@ -240,8 +248,8 @@ function acertaAgendaIndex(id_portlet) {
 
 /*******************************************************************************
  * 
- * Retorna mês por extenso de acordo com um número inteiro passado por parêmetro
- * Autor: Gustavo Perdigão id_portlet = id do portlet para fazer a inserção
+ * Retorna mï¿½s por extenso de acordo com um nï¿½mero inteiro passado por parï¿½metro
+ * Autor: Gustavo Perdigï¿½o id_portlet = id do portlet para fazer a inserï¿½ï¿½o
  * 
  ******************************************************************************/
 
@@ -269,7 +277,7 @@ function retornaMesPorExtenso(mes) {
 
 /*******************************************************************************
  * 
- * Valida e-mails Autor: Gustavo Perdigão str = Endereço de e-mail
+ * Valida e-mails Autor: Gustavo Perdigï¿½o str = Endereï¿½o de e-mail
  * 
  ******************************************************************************/
 
@@ -288,7 +296,7 @@ function ehMailValido(str) {
 /*******************************************************************************
  * 
  * Verifica se existe um determinado registro em um array Autor: Gustavo
- * Perdigão array = Array de registros registro = elemento procurado
+ * Perdigï¿½o array = Array de registros registro = elemento procurado
  * 
  ******************************************************************************/
 
@@ -310,7 +318,7 @@ function contemRegistro(registro, campos) {
 /*******************************************************************************
  * 
  * Verifica se existe um determinado registro em um array Autor: Gustavo
- * Perdigão array = Array de registros registro = elemento procurado
+ * Perdigï¿½o array = Array de registros registro = elemento procurado
  * 
  ******************************************************************************/
 
@@ -328,4 +336,4 @@ function validaForm(id_form,campos_a_validar,tipo_de_validacaoordem_web_form){
 	
 }
 
-});
+);
