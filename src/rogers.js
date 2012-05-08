@@ -8,7 +8,7 @@
  * @copyright         2012, Paulo Henrique Pires Araujo.
  * @license           GNU.
  */
-AUI().ready(
+YUI().use('node', 'rogers', function (Y) {
 
 	/*!
 	 * @functionname    changeLink
@@ -17,109 +17,109 @@ AUI().ready(
 	 * @return type     O que ser� retornado.
 	 */
 	function changeLink(idPortletInicial, idPortletFinal, idPortletReplaceInicial, idPortletReplaceFinal){
-		var link = A.one("#+idPortletInicial").all(".asset-abstract").all(".asset-title").all("a").attr("href").replace("idPortletReplaceInicial","idPortletReplaceFinal");
-			A.one("#+idPortletInicial").all(".asset-abstract").all(".asset-title").all("a").attr("href",link);
-			$("#+idPortletInicial").all(".asset-abstract").all(".asset-more").all("a").attr("href",link);
+		var link = Y.one("#+idPortletInicial").all(".asset-abstract").all(".asset-title").all("a").setAttribute("href").replace("idPortletReplaceInicial","idPortletReplaceFinal");
+			Y.one("#+idPortletInicial").all(".asset-abstract").all(".asset-title").all("a").setAttribute("href",link);
+			Y.one("#+idPortletInicial").all(".asset-abstract").all(".asset-more").all("a").setAttribute("href",link);
 	}
 
 	//Metodo que muda link da lista de titulos
 	function changeLinkList(idPortletInicial, idPortletReplaceInicial, idPortletReplaceFinal){
-		var lista = $("#+idPortletInicial").find(".title-list").find("a");
+		var lista = Y.one("#+idPortletInicial").all(".title-list").all("a");
 			for(i=0;i<lista.length;i++){
-				var lnk = $(lista[i]).attr("href").replace("idPortletReplaceInicial","idPortletReplaceInicial");
-				$(lista[i]).attr("href",lnk)
+				var lnk = Y.one(lista[i]).setAttribute("href").replace("idPortletReplaceInicial","idPortletReplaceInicial");
+				$(lista[i]).setAttribute("href",lnk)
 			}
 	}
 	
 	//Metodo que retira img dos titulos
-	function rogerRetiraImagensTitulos(tag){
-		if($("tag")!=null)
-			$("tag").find("img").attr("style","display:none");
+	function hideTitleImages(tag){
+		if(Y.one("tag")!=null)
+			Y.one("tag").all("img").setAttribute("style","display:none");
 	}
 
 	//Metodo que esconde leia mais
-	function rogerEsconderLeiaMais(idPortlet){
-		$("#+idPortlet").find(".asset-more").hide()
+	function hideReadMore(idPortlet){
+		Y.one("#+idPortlet").all(".asset-more").hide()
 	}
 
 	//Metodo que abre qualquer img de 1 portlet selecionado com facebox
-	function rogerTransformaFacebox(idPortlet){
+	function addFacebox(idPortlet){
 		var divs=new Array(); 
 			divs[0]="#+idPortlet";       
 
 			for(j=0;j<divs.length;j++){
-				var imagens = $(divs[j]).find(".journal-content-article").find("img")
+				var imagens = Y.all(divs[j]).all(".journal-content-article").all("img")
 				var novo_html = "";
 				
 
 				for(i=0;i<imagens.length;i++){
 				  
-				   var src =  $(imagens[i]).attr("src");
-				   novo_html = novo_html + "<div id='img_facebox'><img src='"+src+"' alt='"+$(imagens[i]).attr("alt")+"' title='"+$(imagens[i]).attr("alt")+"'/><a href='"+src+"' rel='facebox' class='bt_ampliar'>Ampliar</a></div>" 
+				   var src =  Y.one(imagens[i]).getAttribute("src");
+				   novo_html = novo_html + "<div id='img_facebox'><img src='"+src+"' alt='"+$(imagens[i]).attr("alt")+"' title='"+$(imagens[i]).setAttribute("alt")+"'/><a href='"+src+"' rel='facebox' class='bt_ampliar'>Ampliar</a></div>" 
 				}
 
-				$(divs[j]).find(".journal-content-article").html("<p>"+novo_html+"</p>")
-				novo_html = ""
+				$(divs[j]).all(".journal-content-article").html("<p>"+novo_html+"</p>")
+				novo_html = "";
 			}
 			$('a[rel*=facebox]').facebox()
 	}
 
 	//Metodo que abre qualquer img de VARIOS portlets selecionados
-	function rogerAbreImagensFacebox (idPortlet1, idPortlet2, idPortlet3){
+	function openFacebox (idPortlet1, idPortlet2, idPortlet3){
 		var divs=new Array(); 
 			divs[0]="#+idPortlet1";       
 			divs[1]="#+idPortlet2";
 			divs[2]="#+idPortlet3";
 
 			for(j=0;j<divs.length;j++){
-				var imagens = $(divs[j]).find(".journal-content-article").find("img")
+				var imagens = Y.all(divs[j]).all(".journal-content-article").all("img")
 				var novo_html = "";
 				
 
 				for(i=0;i<imagens.length;i++){
 				  
-				   var src =  $(imagens[i]).attr("src");
+				   var src =  Y.all(imagens[i]).getAttribute("src");
 				   novo_html = novo_html + "<div id='img_facebox'><img src='"+src+"' alt='"+$(imagens[i]).attr("alt")+"' title='"+$(imagens[i]).attr("alt")+"'/><a href='"+src+"' rel='facebox' class='bt_ampliar'>Ampliar</a></div>" 
 				}
 
-				$(divs[j]).find(".journal-content-article").html("<p>"+novo_html+"</p>")
-				novo_html = ""
+				Y.all(divs[j]).all(".journal-content-article").html("<p>"+novo_html+"</p>")
+				novo_html = "";
 			}
-			$('a[rel*=facebox]').facebox()
+			Y.all('a[rel*=facebox]').facebox();
 	}
 
 	//Metodo que retira informa��es desnecessarias do resultado da busca
-	function rogerHideResultadoBusca(){
+	function hideResultFind(){
 		//retira img do bot�o de pesquisa;
-		$("#_77_search").attr("src","");
+		Y.all("#_77_search").setAttribute("src","");
 
 		//retira opcao de busca no resultado da pesquisa
-		var valor_pesquisado = $("#column-1").find(".aui-field-element ").find("input").attr("value");
-		$("#column-1").find(".aui-field-element ").html("");
-		$("#_77_keywords").attr("value",valor_pesquisado)
-		$("#portlet_77").find("header").hide()
-		$(".col-2").html("");
-		$(".col-1").html("");
-		$(".col-4").html("");
-		$("th").hide();
+		var valor_pesquisado = Y.all("#column-1").all(".aui-field-element ").all("input").getAttribute("value");
+		Y.one("#column-1").all(".aui-field-element ").html("");
+		Y.one("#_77_keywords").setAttribute("value",valor_pesquisado);
+		Y.one("#portlet_77").all("header").hide()
+		Y.one(".col-2").html("");
+		Y.one(".col-1").html("");
+		Y.one(".col-4").html("");
+		Y.one("th").hide();
 	}
 
 	//Metodo que retira link de menu-pai em submenus
-	function rogerHideLinkMenuPai(txtDoMenu, posicaoDoMenu){
-		var li = $("#navigation").find("ul").find("li").find("a");
-			if($(li[posicaoDoMenu]).text().trim()==txtDoMenu){  
-				$(li[txtDoMenu]).attr("href","#")
+	function hideLinkMainMenu(txtDoMenu, posicaoDoMenu){
+		var li = Y.one("#navigation").all("ul").all("li").all("a");
+			if(Y.one(li[posicaoDoMenu]).text().trim()==txtDoMenu){  
+				Y.one(li[txtDoMenu]).setAttribute("href","#");
 		    } 
 	}
 	//Metodo que passa data para extenso
-	function rogerRetiraZerosEsquerda(sStr){
+	function rmZeroLeft(sStr){
 	    var i;
-	    for(i=0;i<sStr.length;i++)
+	    for(i=0;i<sStr.size;i++)
 	    	if(sStr.charAt(i)!='0')
 	   		return sStr.substring(i);
 	    	return sStr;
 	}
-	function rogerRetornaMesExtenso(mes){
+	function months(mes){
 	    mes = retiraZerosEsquerda(mes);
 	    	var meses=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
 	    	var aux = (parseInt(mes));
@@ -128,7 +128,7 @@ AUI().ready(
 	}
 
 	//Metodo que muda a data de acordo com o browser
-	function rogerMudaDataBrowser(){
+	function changeDateBrowser(){
 		var objetos = $(".metadata-publish-date");
 		var divs = $(".metadata-publish-date").closest("div");
 		for(i=0;i<objetos.length;i++){
@@ -336,4 +336,4 @@ function validaForm(id_form,campos_a_validar,tipo_de_validacaoordem_web_form){
 	
 }
 
-);
+});
