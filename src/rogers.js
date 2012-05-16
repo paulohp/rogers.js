@@ -325,7 +325,7 @@ function contemRegistro(registro, campos) {
 function validaForm(id_form,campos_a_validar,tipo_de_validacaoordem_web_form){
 
 	var aux;
-	var inputs = $("#"+id_form+" input");
+	var inputs = Y.all("#"+id_form+" input");
 	var campo="";
 	var a_validar = campos_a_validar.split("-");
 	var tp_validacao = tipo_de_validacao.split("-");
