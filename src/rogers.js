@@ -1,117 +1,125 @@
-/*Framework de Otimização de Desenvolvimento Javascript para Liferay, INC. 
-* Codiname : Rogers.js
-* @autor Paulo H. Pires -> about.me/paulohp e Gustavo Perdigão -> twitter.com/gugaperdigao
-* versão: 1.0.0
-* data: 01/02/2012
-* GNU - Open-Source | É livre a ultilização, modificação e distribuição.
-*/
-$(document).ready(function(){
+/**
+ * @description       Framework Javascript for fast development based in AlloyUI
+ * @subdescription    Features in javascript to avoid repetitive codes.
+ * @package           rogers.js
+ * @version           0.2
+ * @subpackage        rogers.min.js
+ * @author            Paulo Henrique Pires -> usklandestinos.com .
+ * @copyright         2012, Paulo Henrique Pires Araujo.
+ * @license           GNU.
+ */
+YUI().use('node', 'rogers', function (Y) {
 
-	//Metodo que Muda link do Título e do da Notícia em Destaque/Manchete
-	function rogerMudarLinkManchete(idPortletInicial, idPortletFinal, idPortletReplaceInicial, idPortletReplaceFinal){
-		var link = $("#+idPortletInicial").find(".asset-abstract").find(".asset-title").find("a").attr("href").replace("idPortletReplaceInicial","idPortletReplaceFinal");
-			$("#+idPortletInicial").find(".asset-abstract").find(".asset-title").find("a").attr("href",link);
-			$("#+idPortletInicial").find(".asset-abstract").find(".asset-more").find("a").attr("href",link);
+	/*!
+	 * @functionname    changeLink
+	 * @description     Function to Change Title link and the content.
+	 * @param1 type     idPortletInicial = ID of the portlet you want to change
+	 * @return type     O que serï¿½ retornado.
+	 */
+	function changeLink(idPortletInicial, idPortletFinal, idPortletReplaceInicial, idPortletReplaceFinal){
+		var link = Y.one("#+idPortletInicial").all(".asset-abstract").all(".asset-title").all("a").setAttribute("href").replace("idPortletReplaceInicial","idPortletReplaceFinal");
+			Y.one("#+idPortletInicial").all(".asset-abstract").all(".asset-title").all("a").setAttribute("href",link);
+			Y.one("#+idPortletInicial").all(".asset-abstract").all(".asset-more").all("a").setAttribute("href",link);
 	}
-	
+
 	//Metodo que muda link da lista de titulos
-	function rogerMudaLinkLista(idPortletInicial, idPortletReplaceInicial, idPortletReplaceFinal){
-		var lista = $("#+idPortletInicial").find(".title-list").find("a");
+	function changeLinkList(idPortletInicial, idPortletReplaceInicial, idPortletReplaceFinal){
+		var lista = Y.one("#+idPortletInicial").all(".title-list").all("a");
 			for(i=0;i<lista.length;i++){
-				var lnk = $(lista[i]).attr("href").replace("idPortletReplaceInicial","idPortletReplaceInicial");
-				$(lista[i]).attr("href",lnk)
+				var lnk = Y.one(lista[i]).setAttribute("href").replace("idPortletReplaceInicial","idPortletReplaceInicial");
+				$(lista[i]).setAttribute("href",lnk)
 			}
 	}
 	
 	//Metodo que retira img dos titulos
-	function rogerRetiraImagensTitulos(tag){
-		if($("tag")!=null)
-			$("tag").find("img").attr("style","display:none");
+	function hideTitleImages(tag){
+		if(Y.one("tag")!=null)
+			Y.one("tag").all("img").setAttribute("style","display:none");
 	}
 
 	//Metodo que esconde leia mais
-	function rogerEsconderLeiaMais(idPortlet){
-		$("#+idPortlet").find(".asset-more").hide()
+	function hideReadMore(idPortlet){
+		Y.one("#+idPortlet").all(".asset-more").hide()
 	}
 
 	//Metodo que abre qualquer img de 1 portlet selecionado com facebox
-	function rogerTransformaFacebox(idPortlet){
+	function addFacebox(idPortlet){
 		var divs=new Array(); 
 			divs[0]="#+idPortlet";       
 
 			for(j=0;j<divs.length;j++){
-				var imagens = $(divs[j]).find(".journal-content-article").find("img")
+				var imagens = Y.all(divs[j]).all(".journal-content-article").all("img")
 				var novo_html = "";
 				
 
 				for(i=0;i<imagens.length;i++){
 				  
-				   var src =  $(imagens[i]).attr("src");
-				   novo_html = novo_html + "<div id='img_facebox'><img src='"+src+"' alt='"+$(imagens[i]).attr("alt")+"' title='"+$(imagens[i]).attr("alt")+"'/><a href='"+src+"' rel='facebox' class='bt_ampliar'>Ampliar</a></div>" 
+				   var src =  Y.one(imagens[i]).getAttribute("src");
+				   novo_html = novo_html + "<div id='img_facebox'><img src='"+src+"' alt='"+$(imagens[i]).attr("alt")+"' title='"+$(imagens[i]).setAttribute("alt")+"'/><a href='"+src+"' rel='facebox' class='bt_ampliar'>Ampliar</a></div>" 
 				}
 
-				$(divs[j]).find(".journal-content-article").html("<p>"+novo_html+"</p>")
-				novo_html = ""
+				$(divs[j]).all(".journal-content-article").html("<p>"+novo_html+"</p>")
+				novo_html = "";
 			}
 			$('a[rel*=facebox]').facebox()
 	}
 
 	//Metodo que abre qualquer img de VARIOS portlets selecionados
-	function rogerAbreImagensFacebox (idPortlet1, idPortlet2, idPortlet3){
+	function openFacebox (idPortlet1, idPortlet2, idPortlet3){
 		var divs=new Array(); 
 			divs[0]="#+idPortlet1";       
 			divs[1]="#+idPortlet2";
 			divs[2]="#+idPortlet3";
 
 			for(j=0;j<divs.length;j++){
-				var imagens = $(divs[j]).find(".journal-content-article").find("img")
+				var imagens = Y.all(divs[j]).all(".journal-content-article").all("img")
 				var novo_html = "";
 				
 
 				for(i=0;i<imagens.length;i++){
 				  
-				   var src =  $(imagens[i]).attr("src");
+				   var src =  Y.all(imagens[i]).getAttribute("src");
 				   novo_html = novo_html + "<div id='img_facebox'><img src='"+src+"' alt='"+$(imagens[i]).attr("alt")+"' title='"+$(imagens[i]).attr("alt")+"'/><a href='"+src+"' rel='facebox' class='bt_ampliar'>Ampliar</a></div>" 
 				}
 
-				$(divs[j]).find(".journal-content-article").html("<p>"+novo_html+"</p>")
-				novo_html = ""
+				Y.all(divs[j]).all(".journal-content-article").html("<p>"+novo_html+"</p>")
+				novo_html = "";
 			}
-			$('a[rel*=facebox]').facebox()
+			Y.all('a[rel*=facebox]').facebox();
 	}
 
-	//Metodo que retira informações desnecessarias do resultado da busca
-	function rogerHideResultadoBusca(){
-		//retira img do botão de pesquisa;
-		$("#_77_search").attr("src","");
+	//Metodo que retira informaï¿½ï¿½es desnecessarias do resultado da busca
+	function hideResultFind(){
+		//retira img do botï¿½o de pesquisa;
+		Y.all("#_77_search").setAttribute("src","");
 
 		//retira opcao de busca no resultado da pesquisa
-		var valor_pesquisado = $("#column-1").find(".aui-field-element ").find("input").attr("value");
-		$("#column-1").find(".aui-field-element ").html("");
-		$("#_77_keywords").attr("value",valor_pesquisado)
-		$("#portlet_77").find("header").hide()
-		$(".col-2").html("");
-		$(".col-1").html("");
-		$(".col-4").html("");
-		$("th").hide();
+		var valor_pesquisado = Y.all("#column-1").all(".aui-field-element ").all("input").getAttribute("value");
+		Y.one("#column-1").all(".aui-field-element ").html("");
+		Y.one("#_77_keywords").setAttribute("value",valor_pesquisado);
+		Y.one("#portlet_77").all("header").hide()
+		Y.one(".col-2").html("");
+		Y.one(".col-1").html("");
+		Y.one(".col-4").html("");
+		Y.one("th").hide();
 	}
 
 	//Metodo que retira link de menu-pai em submenus
-	function rogerHideLinkMenuPai(txtDoMenu, posicaoDoMenu){
-		var li = $("#navigation").find("ul").find("li").find("a");
-			if($(li[posicaoDoMenu]).text().trim()==txtDoMenu){  
-				$(li[txtDoMenu]).attr("href","#")
+	function hideLinkMainMenu(txtDoMenu, posicaoDoMenu){
+		var li = Y.one("#navigation").all("ul").all("li").all("a");
+			if(Y.one(li[posicaoDoMenu]).text().trim()==txtDoMenu){  
+				Y.one(li[txtDoMenu]).setAttribute("href","#");
 		    } 
 	}
 	//Metodo que passa data para extenso
-	function rogerRetiraZerosEsquerda(sStr){
+	function rmZeroLeft(sStr){
 	    var i;
-	    for(i=0;i<sStr.length;i++)
+	    for(i=0;i<sStr.size;i++)
 	    	if(sStr.charAt(i)!='0')
 	   		return sStr.substring(i);
 	    	return sStr;
 	}
-	function rogerRetornaMesExtenso(mes){
+	function months(mes){
 	    mes = retiraZerosEsquerda(mes);
 	    	var meses=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
 	    	var aux = (parseInt(mes));
@@ -120,7 +128,7 @@ $(document).ready(function(){
 	}
 
 	//Metodo que muda a data de acordo com o browser
-	function rogerMudaDataBrowser(){
+	function changeDateBrowser(){
 		var objetos = $(".metadata-publish-date");
 		var divs = $(".metadata-publish-date").closest("div");
 		for(i=0;i<objetos.length;i++){
@@ -161,9 +169,9 @@ $(document).ready(function(){
 	}
 	/*******************************************************************************
  * 
- * Troca link em listas Autor: Gustavo Perdigão lista = Lista de elementos do
- * tipo <a> atual = identificação do portlet de atualização novo = identificação
- * do novo portlet de visuzlização
+ * Troca link em listas Autor: Gustavo Perdigï¿½o lista = Lista de elementos do
+ * tipo <a> atual = identificaï¿½ï¿½o do portlet de atualizaï¿½ï¿½o novo = identificaï¿½ï¿½o
+ * do novo portlet de visuzlizaï¿½ï¿½o
  * 
  ******************************************************************************/
 
@@ -180,8 +188,8 @@ function trocaStringEmListasDeLinks(lista, atual, novo) {
 
 /*******************************************************************************
  * 
- * Insere Div em asset-summary Autor: Gustavo Perdigão id_portlet = id do
- * portlet para fazer a inserção
+ * Insere Div em asset-summary Autor: Gustavo Perdigï¿½o id_portlet = id do
+ * portlet para fazer a inserï¿½ï¿½o
  * 
  ******************************************************************************/
 
@@ -215,9 +223,9 @@ function acertaImagensEResumos(id_portlet) {
 
 /*******************************************************************************
  * 
- * Função responsável por acertar a agenda para que fique seja possível
- * estilizar mês e dia Autor: Gustavo Perdigão id_portlet = id do portlet para
- * fazer a inserção
+ * Funï¿½ï¿½o responsï¿½vel por acertar a agenda para que fique seja possï¿½vel
+ * estilizar mï¿½s e dia Autor: Gustavo Perdigï¿½o id_portlet = id do portlet para
+ * fazer a inserï¿½ï¿½o
  * 
  ******************************************************************************/
 
@@ -240,8 +248,8 @@ function acertaAgendaIndex(id_portlet) {
 
 /*******************************************************************************
  * 
- * Retorna mês por extenso de acordo com um número inteiro passado por parêmetro
- * Autor: Gustavo Perdigão id_portlet = id do portlet para fazer a inserção
+ * Retorna mï¿½s por extenso de acordo com um nï¿½mero inteiro passado por parï¿½metro
+ * Autor: Gustavo Perdigï¿½o id_portlet = id do portlet para fazer a inserï¿½ï¿½o
  * 
  ******************************************************************************/
 
@@ -269,7 +277,7 @@ function retornaMesPorExtenso(mes) {
 
 /*******************************************************************************
  * 
- * Valida e-mails Autor: Gustavo Perdigão str = Endereço de e-mail
+ * Valida e-mails Autor: Gustavo Perdigï¿½o str = Endereï¿½o de e-mail
  * 
  ******************************************************************************/
 
@@ -288,7 +296,7 @@ function ehMailValido(str) {
 /*******************************************************************************
  * 
  * Verifica se existe um determinado registro em um array Autor: Gustavo
- * Perdigão array = Array de registros registro = elemento procurado
+ * Perdigï¿½o array = Array de registros registro = elemento procurado
  * 
  ******************************************************************************/
 
@@ -310,14 +318,14 @@ function contemRegistro(registro, campos) {
 /*******************************************************************************
  * 
  * Verifica se existe um determinado registro em um array Autor: Gustavo
- * Perdigão array = Array de registros registro = elemento procurado
+ * Perdigï¿½o array = Array de registros registro = elemento procurado
  * 
  ******************************************************************************/
 
 function validaForm(id_form,campos_a_validar,tipo_de_validacaoordem_web_form){
 
 	var aux;
-	var inputs = $("#"+id_form+" input");
+	var inputs = Y.all("#"+id_form+" input");
 	var campo="";
 	var a_validar = campos_a_validar.split("-");
 	var tp_validacao = tipo_de_validacao.split("-");
