@@ -4,19 +4,19 @@
  * @package           rogers.js
  * @version           0.2
  * @subpackage        rogers.min.js
- * @author            Paulo Henrique Pires -> usklandestinos.com .
+ * @authors            Paulo Henrique Pires -> usklandestinos.com, Mark Romero .
  * @copyright         2012, Paulo Henrique Pires Araujo.
  * @license           GNU.
  */
-YUI().use('node', 'rogers', function (Y) {
+YUI().use('node', function (Y) {
 
 	/*!
 	 * @functionname    changeLink
 	 * @description     Function to Change Title link and the content.
 	 * @param1 type     idPortletInicial = ID of the portlet you want to change
-	 * @return type     O que ser� retornado.
+	 * @return type     O que sere retornado.
 	 */
-	function changeLink(idPortletInicial, idPortletFinal, idPortletReplaceInicial, idPortletReplaceFinal){
+	var changeLink = function(idPortletInicial, idPortletFinal, idPortletReplaceInicial, idPortletReplaceFinal){
 		var link = Y.one("#+idPortletInicial").all(".asset-abstract").all(".asset-title").all("a").setAttribute("href").replace("idPortletReplaceInicial","idPortletReplaceFinal");
 			Y.one("#+idPortletInicial").all(".asset-abstract").all(".asset-title").all("a").setAttribute("href",link);
 			Y.one("#+idPortletInicial").all(".asset-abstract").all(".asset-more").all("a").setAttribute("href",link);
@@ -88,9 +88,9 @@ YUI().use('node', 'rogers', function (Y) {
 			Y.all('a[rel*=facebox]').facebox();
 	}
 
-	//Metodo que retira informa��es desnecessarias do resultado da busca
+	//Metodo que retira informaçoes desnecessarias do resultado da busca
 	function hideResultFind(){
-		//retira img do bot�o de pesquisa;
+		//retira img do botao de pesquisa;
 		Y.all("#_77_search").setAttribute("src","");
 
 		//retira opcao de busca no resultado da pesquisa
@@ -119,21 +119,21 @@ YUI().use('node', 'rogers', function (Y) {
 	   		return sStr.substring(i);
 	    	return sStr;
 	}
-	function months(mes){
-	    mes = retiraZerosEsquerda(mes);
+	function months(month){
+	    month = rmZeroLeft(month);
 	    	var meses=["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
 	    	var aux = (parseInt(mes));
-	    	var indice = aux -1; 
-	    return meses[indice];
+	    	var index = aux -1; 
+	    return meses[index];
 	}
 
 	//Metodo que muda a data de acordo com o browser
 	function changeDateBrowser(){
-		var objetos = $(".metadata-publish-date");
+		var objDate = $(".metadata-publish-date");
 		var divs = $(".metadata-publish-date").closest("div");
-		for(i=0;i<objetos.length;i++){
-		    data = $(objetos[i]).text().replace(/^\s+|\s+$/g,""); 
-		    aux = data.split("/");
+		for(i=0;i<objDate.length;i++){
+		    date = $(objDate[i]).text().replace(/^\s+|\s+$/g,""); 
+		    aux = date.split("/");
 		    if($.browser.mozilla){
 				aux = "<span class='mes'>"+retornaMes(aux[1])+"</span><span class='dia'>"+aux[0]+"</span>"; 
 		    }else{
@@ -145,7 +145,7 @@ YUI().use('node', 'rogers', function (Y) {
 	
 	/*************************************** Acerta texto sem bloco no banner *********************************/
 
-	function rogerAcertaImagensEResumos(id_portlet){
+	function catchSummary(id_portlet){
 		var portlet = $("#"+id_portlet);
 		var sum = $(portlet).find('div.asset-summary');
 		var small = $(portlet).find("div.asset-small-image");
@@ -161,26 +161,26 @@ YUI().use('node', 'rogers', function (Y) {
 		 
 		//Apenda div
 		for (i=0;i<=sum.length;i++){
-			$(sum[i]).append("<div id='div-exclusiva-texto_"+i+"'></div>");
+			Y.all(sum[i]).appendChild("<div id='div-exclusiva-texto_"+i+"'></div>");
 			var dv_txt = $("#div-exclusiva-texto_"+i);
-			$(dv_txt).append(textos[i]);
-			$(sum[i]).append(dv_txt);
+			Y.all(dv_txt).append(textos[i]);
+			Y.all(sum[i]).append(dv_txt);
 		}
 	}
 	/*******************************************************************************
- * 
- * Troca link em listas Autor: Gustavo Perdig�o lista = Lista de elementos do
- * tipo <a> atual = identifica��o do portlet de atualiza��o novo = identifica��o
- * do novo portlet de visuzliza��o
- * 
- ******************************************************************************/
+	 * 
+	 * Troca link em listas Autor: Paulo Henrique Pires lista = Lista de elementos do
+	 * tipo <a> atual = identificacao do portlet de atualizacao novo = identificacao
+	 * do novo portlet de visuzlizacao
+	 * 
+	 ******************************************************************************/
 
-function trocaStringEmListasDeLinks(lista, atual, novo) {
+function changeStringLinkList(lista, atual, novo) {
 
-	$(lista).each(function() {
-		aux = $(this).attr("href");
+	Y.all(lista).each(function() {
+		aux = this.attr("href");
 		aux = aux.replace(atual, novo);
-		$(this).attr("href", aux);
+		this.attr("href", aux);
 
 	});
 
@@ -188,8 +188,8 @@ function trocaStringEmListasDeLinks(lista, atual, novo) {
 
 /*******************************************************************************
  * 
- * Insere Div em asset-summary Autor: Gustavo Perdig�o id_portlet = id do
- * portlet para fazer a inser��o
+ * Insere Div em asset-summary Autor: Paulo Henrique Pires id_portlet = id do
+ * portlet para fazer a insercao
  * 
  ******************************************************************************/
 
@@ -224,7 +224,7 @@ function acertaImagensEResumos(id_portlet) {
 /*******************************************************************************
  * 
  * Fun��o respons�vel por acertar a agenda para que fique seja poss�vel
- * estilizar m�s e dia Autor: Gustavo Perdig�o id_portlet = id do portlet para
+ * estilizar m�s e dia Autor: Paulo Henrique Pires id_portlet = id do portlet para
  * fazer a inser��o
  * 
  ******************************************************************************/
@@ -249,7 +249,7 @@ function acertaAgendaIndex(id_portlet) {
 /*******************************************************************************
  * 
  * Retorna m�s por extenso de acordo com um n�mero inteiro passado por par�metro
- * Autor: Gustavo Perdig�o id_portlet = id do portlet para fazer a inser��o
+ * Autor: Paulo Henrique Pires id_portlet = id do portlet para fazer a inser��o
  * 
  ******************************************************************************/
 
@@ -277,7 +277,7 @@ function retornaMesPorExtenso(mes) {
 
 /*******************************************************************************
  * 
- * Valida e-mails Autor: Gustavo Perdig�o str = Endere�o de e-mail
+ * Valida e-mails Autor: Paulo Henrique Pires str = Endere�o de e-mail
  * 
  ******************************************************************************/
 
@@ -295,8 +295,8 @@ function ehMailValido(str) {
 
 /*******************************************************************************
  * 
- * Verifica se existe um determinado registro em um array Autor: Gustavo
- * Perdig�o array = Array de registros registro = elemento procurado
+ * Verifica se existe um determinado registro em um array Autor: Paulo Henrique Pires 
+ * array = Array de registros registro = elemento procurado
  * 
  ******************************************************************************/
 
@@ -317,8 +317,8 @@ function contemRegistro(registro, campos) {
 
 /*******************************************************************************
  * 
- * Verifica se existe um determinado registro em um array Autor: Gustavo
- * Perdig�o array = Array de registros registro = elemento procurado
+ * Verifica se existe um determinado registro em um array Autor: Paulo Henrique Pires
+ * array = Array de registros registro = elemento procurado
  * 
  ******************************************************************************/
 
