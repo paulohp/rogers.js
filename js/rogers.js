@@ -28,7 +28,7 @@ YUI().use('node', function (Y) {
 		var lista = Y.one("#+idPortletInicial").all(".title-list").all("a");
 			for(i=0;i<lista.length;i++){
 				var lnk = Y.one(lista[i]).setAttribute("href").replace("idPortletReplaceInicial","idPortletReplaceInicial");
-				$(lista[i]).setAttribute("href",lnk)
+				Y.all(lista[i]).setAttribute("href",lnk)
 			}
 	}
 	
@@ -56,13 +56,13 @@ YUI().use('node', function (Y) {
 				for(i=0;i<imagens.length;i++){
 				  
 				   var src =  Y.one(imagens[i]).getAttribute("src");
-				   novo_html = novo_html + "<div id='img_facebox'><img src='"+src+"' alt='"+$(imagens[i]).attr("alt")+"' title='"+$(imagens[i]).setAttribute("alt")+"'/><a href='"+src+"' rel='facebox' class='bt_ampliar'>Ampliar</a></div>" 
+				   novo_html = novo_html + "<div id='img_facebox'><img src='"+src+"' alt='"+Y.all(imagens[i]).getAttribute("alt")+"' title='"+Y.all(imagens[i]).setAttribute("alt")+"'/><a href='"+src+"' rel='facebox' class='bt_ampliar'>Ampliar</a></div>" 
 				}
 
-				$(divs[j]).all(".journal-content-article").html("<p>"+novo_html+"</p>")
+				Y.all(divs[j]).all(".journal-content-article").getHTML("<p>"+novo_html+"</p>")
 				novo_html = "";
 			}
-			$('a[rel*=facebox]').facebox()
+			Y.all('a[rel*=facebox]').facebox()
 	}
 
 	//Metodo que abre qualquer img de VARIOS portlets selecionados
@@ -80,10 +80,10 @@ YUI().use('node', function (Y) {
 				for(i=0;i<imagens.length;i++){
 				  
 				   var src =  Y.all(imagens[i]).getAttribute("src");
-				   novo_html = novo_html + "<div id='img_facebox'><img src='"+src+"' alt='"+$(imagens[i]).attr("alt")+"' title='"+$(imagens[i]).attr("alt")+"'/><a href='"+src+"' rel='facebox' class='bt_ampliar'>Ampliar</a></div>" 
+				   novo_html = novo_html + "<div id='img_facebox'><img src='"+src+"' alt='"+Y.all(imagens[i]).getAttribute("alt")+"' title='"+Y.all(imagens[i]).getAttribute("alt")+"'/><a href='"+src+"' rel='facebox' class='bt_ampliar'>Ampliar</a></div>" 
 				}
 
-				Y.all(divs[j]).all(".journal-content-article").html("<p>"+novo_html+"</p>")
+				Y.all(divs[j]).all(".journal-content-article").getHTML("<p>"+novo_html+"</p>")
 				novo_html = "";
 			}
 			Y.all('a[rel*=facebox]').facebox();
@@ -96,12 +96,12 @@ YUI().use('node', function (Y) {
 
 		//retira opcao de busca no resultado da pesquisa
 		var valor_pesquisado = Y.all("#column-1").all(".aui-field-element ").all("input").getAttribute("value");
-		Y.one("#column-1").all(".aui-field-element ").html("");
+		Y.one("#column-1").all(".aui-field-element ").getHTML("");
 		Y.one("#_77_keywords").setAttribute("value",valor_pesquisado);
 		Y.one("#portlet_77").all("header").hide()
-		Y.one(".col-2").html("");
-		Y.one(".col-1").html("");
-		Y.one(".col-4").html("");
+		Y.one(".col-2").getHTML("");
+		Y.one(".col-1").getHTML("");
+		Y.one(".col-4").getHTML("");
 		Y.one("th").hide();
 	}
 
@@ -130,40 +130,39 @@ YUI().use('node', function (Y) {
 
 	//Metodo que muda a data de acordo com o browser
 	function changeDateBrowser(){
-		var objDate = $(".metadata-publish-date");
-		var divs = $(".metadata-publish-date").closest("div");
+		var objDate = Y.all(".metadata-publish-date");
+		var divs = Y.all(".metadata-publish-date").closest("div");
 		for(i=0;i<objDate.length;i++){
-		    date = $(objDate[i]).text().replace(/^\s+|\s+$/g,""); 
+		    date = Y.all(objDate[i]).text().replace(/^\s+|\s+$/g,""); 
 		    aux = date.split("/");
-		    if($.browser.mozilla){
+		    if(Y.all.browser.mozilla){
 				aux = "<span class='mes'>"+retornaMes(aux[1])+"</span><span class='dia'>"+aux[0]+"</span>"; 
 		    }else{
 				aux = "<span class='mes'>"+retornaMes(aux[1])+"</span><span class='dia'>"+aux[0]+"</span>";  
 		    }
-		    $(divs[i]).html(aux); 
+		    Y.all(divs[i]).getHTML(aux); 
 		}
 	}
 	
 	/*************************************** Acerta texto sem bloco no banner *********************************/
 
 	function catchSummary(id_portlet){
-		var portlet = $("#"+id_portlet);
-		var sum = $(portlet).find('div.asset-summary');
-		var small = $(portlet).find("div.asset-small-image");
+		var portlet = Y.all("#"+id_portlet);
+		var sum = Y.all(portlet).one('div.asset-summary');
+		var small = Y.all(portlet).one("div.asset-small-image");
 		var textos = new Array();
 		// Captura textos
 		for (i=0;i<=sum.length;i++){
-		
-			textos[i] = $(sum[i]).contents().filter(function(){ return this.nodeType == 3; }).text();
+			textos[i] = Y.all(sum[i]).contents().filter(function(){ return this.nodeType == 3; }).text();
 		}
 		
-		$(portlet).find('div.asset-summary').contents().filter(function(){ return this.nodeType == 3; }).remove();
-		$(portlet).find(".asset-more").remove();
+		Y.all(portlet).all('div.asset-summary').contents().filter(function(){ return this.nodeType == 3; }).remove();
+		Y.all(portlet).all(".asset-more").remove();
 		 
 		//Apenda div
 		for (i=0;i<=sum.length;i++){
 			Y.all(sum[i]).appendChild("<div id='div-exclusiva-texto_"+i+"'></div>");
-			var dv_txt = $("#div-exclusiva-texto_"+i);
+			var dv_txt = Y.all("#div-exclusiva-texto_"+i);
 			Y.all(dv_txt).append(textos[i]);
 			Y.all(sum[i]).append(dv_txt);
 		}
@@ -179,9 +178,9 @@ YUI().use('node', function (Y) {
 function changeStringLinkList(lista, atual, novo) {
 
 	Y.all(lista).each(function() {
-		aux = this.attr("href");
+		aux = this.getAttribute("href");
 		aux = aux.replace(atual, novo);
-		this.attr("href", aux);
+		this.setAttribute("href", aux);
 
 	});
 
@@ -189,36 +188,37 @@ function changeStringLinkList(lista, atual, novo) {
 
 /*******************************************************************************
  * 
- * Insere Div em asset-summary Autor: Paulo Henrique Pires id_portlet = id do
- * portlet para fazer a insercao
+ * Insere Div em asset-summary 
+ * Autor: Paulo Henrique Pires 
+ * id_portlet = id do portlet para fazer a insercao
  * 
  ******************************************************************************/
 
-function acertaImagensEResumos(id_portlet) {
+function catchImageSummary(id_portlet) {
 
-	var portlet = $("#" + id_portlet);
-	var sum = $(portlet).find('div.asset-summary');
-	var small = $(portlet).find("div.asset-small-image");
+	var portlet = Y.one("#" + id_portlet);
+	var sum = Y.all(portlet).one('div.asset-summary');
+	var small = Y.all(portlet).one("div.asset-small-image");
 	var textos = new Array();
 	// Captura textos
 	for (i = 0; i <= sum.length; i++) {
 
-		textos[i] = $(sum[i]).contents().filter(function() {
+		textos[i] = Y.all(sum[i]).contents().filter(function() {
 			return this.nodeType == 3;
 		}).text();
 	}
 
-	$(portlet).find('div.asset-summary').contents().filter(function() {
+	Y.all(portlet).one('div.asset-summary').contents().filter(function() {
 		return this.nodeType == 3;
 	}).remove();
-	$(portlet).find(".asset-more").remove();
+	Y.all(portlet).one(".asset-more").remove();
 
 	// Apenda div
 	for (i = 0; i <= sum.length; i++) {
-		$(sum[i]).append("<div id='div-exclusiva-texto_" + i + "'></div>");
-		var dv_txt = $("#div-exclusiva-texto_" + i);
-		$(dv_txt).append(textos[i]);
-		$(sum[i]).append(dv_txt);
+		Y.all(sum[i]).append("<div id='div-exclusiva-texto_" + i + "'></div>");
+		var dv_txt = Y.all("#div-exclusiva-texto_" + i);
+		Y.all(dv_txt).append(textos[i]);
+		Y.all(sum[i]).append(dv_txt);
 	}
 }
 
@@ -230,20 +230,20 @@ function acertaImagensEResumos(id_portlet) {
  * 
  ******************************************************************************/
 
-function acertaAgendaIndex(id_portlet) {
+function catchCalendar(id_portlet) {
 
-	var texto = $("#" + id_portlet + " .asset-summary").contents().filter(
+	var texto = Y.all("#" + id_portlet + " .asset-summary").contents().filter(
 			function() {
 				return this.nodeType == 3;
 			}).text();
 	var data = texto.split(":")
 	var aux = data[1].split("/")
-	$("#" + id_portlet + " .asset-summary").contents().filter(function() {
+	Y.all("#" + id_portlet + " .asset-summary").contents().filter(function() {
 		return this.nodeType == 3;
 	}).remove()
 	var conteudo = "<div id='dia_agenda'>" + aux[0] + "</div>"
 			+ "<div id='mes_agenda'>" + retornaMesPorExtenso(aux[1]) + "</div>"
-	$("#" + id_portlet + " .asset-summary p").after(conteudo);
+	Y.all("#" + id_portlet + " .asset-summary p").after(conteudo);
 
 }
 
@@ -254,7 +254,7 @@ function acertaAgendaIndex(id_portlet) {
  * 
  ******************************************************************************/
 
-function retornaMesPorExtenso(mes) {
+function extenseMoth(mes) {
 
 	var aux = parseInt(mes);
 
@@ -282,7 +282,7 @@ function retornaMesPorExtenso(mes) {
  * 
  ******************************************************************************/
 
-function ehMailValido(str) {
+function mailValidate(str) {
 
 	var filter = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 	if (filter.test(str))
@@ -301,13 +301,13 @@ function ehMailValido(str) {
  * 
  ******************************************************************************/
 
-function contemRegistro(registro, campos) {
+function registerCount(registro, campos) {
 	
 	var array = campos.split("-");
 	
 	var reg = String(registro);
 	for (i = 0; i <= array.length; i++) {
-		if ($.trim(reg) == $.trim(array[i])) {
+		if (Y.Lang.trim(reg) == Y.Lang.trim(array[i])) {
 			return true;
 		}
 	}
@@ -318,12 +318,13 @@ function contemRegistro(registro, campos) {
 
 /*******************************************************************************
  * 
- * Verifica se existe um determinado registro em um array Autor: Paulo Henrique Pires
+ * Verifica se existe um determinado registro em um array 
+ * Autor: Paulo Henrique Pires
  * array = Array de registros registro = elemento procurado
  * 
  ******************************************************************************/
 
-function validaForm(id_form,campos_a_validar,tipo_de_validacaoordem_web_form){
+function formValidate(id_form,campos_a_validar,tipo_de_validacaoordem_web_form){
 
 	var aux;
 	var inputs = Y.all("#"+id_form+" input");
@@ -338,6 +339,3 @@ function validaForm(id_form,campos_a_validar,tipo_de_validacaoordem_web_form){
 }
 
 });
-=======
-//em breve
->>>>>>> 1b22c9f319b0fe911a51023ba03f01562e0c649c:src/rogers.js
