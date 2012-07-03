@@ -1,3 +1,4 @@
+<<<<<<< HEAD:js/rogers.js
 /**
  * @description       Framework Javascript for fast development based in AlloyUI
  * @subdescription    Features in javascript to avoid repetitive codes.
@@ -337,3 +338,6 @@ function validaForm(id_form,campos_a_validar,tipo_de_validacaoordem_web_form){
 }
 
 });
+=======
+//em breve
+>>>>>>> 1b22c9f319b0fe911a51023ba03f01562e0c649c:src/rogers.js
