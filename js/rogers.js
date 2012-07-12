@@ -1,4 +1,3 @@
-<<<<<<< HEAD:js/rogers.js
 /**
  * @description       Framework Javascript for fast development based in AlloyUI
  * @subdescription    Features in javascript to avoid repetitive codes.
