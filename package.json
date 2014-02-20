@@ -1,10 +1,10 @@
 {
-  "name": "rogers.js",
+  "name": "rogers",
   "version": "0.0.0",
   "description": "MarverlAPI Wrapper",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "npm test": "test"
   },
   "repository": {
     "type": "git",
