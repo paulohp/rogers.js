@@ -1,0 +1,24 @@
+{
+  "name": "rogers.js",
+  "version": "0.0.0",
+  "description": "MarverlAPI Wrapper",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/paulohp/rogers.js.git"
+  },
+  "keywords": [
+    "marvel",
+    "API",
+    "marvelAPI"
+  ],
+  "author": "Paulo Pires",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paulohp/rogers.js/issues"
+  },
+  "homepage": "https://github.com/paulohp/rogers.js"
+}
