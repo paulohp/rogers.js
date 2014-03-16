@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/paulohp/rogers.js/issues"
   },
-  "homepage": "https://github.com/paulohp/rogers.js"
+  "homepage": "https://github.com/paulohp/rogers.js",
+  "dependencies":{
+    "request": "2.33.0"
+  }
 }
