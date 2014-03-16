@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/paulohp/rogers.js",
   "dependencies":{
-    "request": "2.33.0"
+    "request": "2.33.0",
+    "bluebird": "1.1.0"
   }
 }
