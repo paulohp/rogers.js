@@ -1,5 +1,3 @@
-function openConn(credentials){
+exports.openConn = function (credentials){
   return require('./lib')(credentials);
 }
-
-module.exports = openConn;
